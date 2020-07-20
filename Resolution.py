@@ -33,6 +33,24 @@ def CNF(sentence):
     return temp2
 
 
+variableArray = list("abcdefghijklmnopqrstuvwxyz")
+variableArray2 = []
+variableArray3 = []
+variableArray5 = []
+variableArray6 = []
+for eachCombination in itertools.permutations(variableArray, 2):
+    variableArray2.append(eachCombination[0] + eachCombination[1])
+for eachCombination in itertools.permutations(variableArray, 3):
+    variableArray3.append(eachCombination[0] + eachCombination[1] + eachCombination[2])
+for eachCombination in itertools.permutations(variableArray, 4):
+    variableArray5.append(eachCombination[0] + eachCombination[1] + eachCombination[2]+ eachCombination[3])
+for eachCombination in itertools.permutations(variableArray, 5):
+    variableArray6.append(eachCombination[0] + eachCombination[1] + eachCombination[2] + eachCombination[3] + eachCombination[4])
+variableArray = variableArray + variableArray2 + variableArray3 + variableArray5 + variableArray6
+capitalVariables = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+number=0
+  
+
 
 if __name__ == '__main__': 
     finalanswer=resolution()
