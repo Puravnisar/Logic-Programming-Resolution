@@ -51,6 +51,26 @@ capitalVariables = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 number=0
   
 
+def standardizationnew(sentence):
+    newsentence=list(sentence)
+    i=0
+    global number
+    variables=collections.OrderedDict()
+    positionsofvariable=collections.OrderedDict()
+    lengthofsentence=len(sentence)
+    for i in range(0,lengthofsentence-1):
+        if(newsentence[i]==',' or newsentence[i]=='('):
+            if newsentence[i+1] not in capitalVariables:
+                substitution=variables.get(newsentence[i+1])
+                positionsofvariable[i+1]=i+1
+                if not substitution :
+                    variables[newsentence[i+1]]=variableArray[number]
+                    newsentence[i+1]=variableArray[number]
+                    number+=1
+                else:
+                    newsentence[i+1]=substitution
+    return  "".join(newsentence)            
+
 
 if __name__ == '__main__': 
     finalanswer=resolution()
