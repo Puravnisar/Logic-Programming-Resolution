@@ -71,6 +71,32 @@ def standardizationnew(sentence):
                     newsentence[i+1]=substitution
     return  "".join(newsentence)            
 
+def insidestandardizationnew(sentence):
+    lengthofsentence=len(sentence)
+    newsentence=sentence
+    variables=collections.OrderedDict()
+    positionsofvariable=collections.OrderedDict()
+    global number
+    i=0
+    while i <=len(newsentence)-1 :
+        if(newsentence[i]==',' or newsentence[i]=='('):
+            if newsentence[i+1] not in capitalVariables:
+               j=i+1
+               while(newsentence[j]!=',' and newsentence[j]!=')' ):
+                     j+=1
+               substitution=variables.get(newsentence[i+1:j])
+               if not substitution :
+                    variables[newsentence[i+1:j]]=variableArray[number]
+                    newsentence=newsentence[:i+1]+variableArray[number]+newsentence[j:]
+                    i=i+len(variableArray[number])
+                    number+=1
+               else:           
+                    newsentence=newsentence[:i+1]+substitution+newsentence[j:]
+                    i=i+len(substitution)
+        i+=1
+    return newsentence
+
+
 
 if __name__ == '__main__': 
     finalanswer=resolution()
