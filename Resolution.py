@@ -96,6 +96,25 @@ def insidestandardizationnew(sentence):
         i+=1
     return newsentence
 
+def replace(sentence,theta):
+    lengthofsentence=len(sentence)
+    newsentence=sentence
+    i=0
+    while i <=len(newsentence)-1 :
+        if(newsentence[i]==',' or newsentence[i]=='('):
+            if newsentence[i+1] not in capitalVariables:
+               j=i+1
+               while(newsentence[j]!=',' and newsentence[j]!=')' ):
+                     j+=1
+               nstemp=newsentence[i+1:j]      
+               substitution=theta.get(nstemp)
+               if substitution :
+                    newsentence=newsentence[:i+1]+substitution+newsentence[j:]
+                    i=i+len(substitution)
+        i+=1   
+    return newsentence    
+
+repeatedsentencecheck=collections.OrderedDict()
 
 
 if __name__ == '__main__': 
