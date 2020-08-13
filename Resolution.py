@@ -116,6 +116,29 @@ def replace(sentence,theta):
 
 repeatedsentencecheck=collections.OrderedDict()
 
+def insidekbcheck(sentence):
+    lengthofsentence=len(sentence)
+    newsentence=pattern.split(sentence)
+    newsentence.sort()
+    newsentence="|".join(newsentence)
+    global repeatedsentencecheck 
+    i=0
+    while i <=len(newsentence)-1 :
+        if(newsentence[i]==',' or newsentence[i]=='('):
+            if newsentence[i+1] not in capitalVariables:
+               j=i+1
+               while(newsentence[j]!=',' and newsentence[j]!=')' ):
+                     j+=1
+               newsentence=newsentence[:i+1]+'x'+newsentence[j:]
+        i+=1
+    repeatflag=repeatedsentencecheck.get(newsentence)
+    if repeatflag :
+        return True
+    repeatedsentencecheck[newsentence]=1    
+    return False                           
+
+
+
 
 if __name__ == '__main__': 
     finalanswer=resolution()
