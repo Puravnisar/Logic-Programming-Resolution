@@ -139,6 +139,48 @@ def insidekbcheck(sentence):
 
 
 
+for i in range(n+2,n+2+k):
+     data1[i]=data1[i].replace(" ","") 
+     if "=>" in data1[i]:
+        data1[i]=data1[i].replace(" ","") 
+        sentencetemp=CNF(data1[i].rstrip())
+        kbbefore.append(sentencetemp)
+     else:
+        kbbefore.append(data1[i].rstrip())  
+for i in range(0,k):
+    kbbefore[i]=kbbefore[i].replace(" ","") 
+
+kb={}
+pattern=re.compile("\||&|=>") #we can remove the '\|'' to speed up as 'OR' doesnt come in the KB
+pattern1=re.compile("[(,]")
+for i in range(0,k):   
+    kbbefore[i]=standardizationnew(kbbefore[i])
+    temp=pattern.split(kbbefore[i])
+    lenoftemp=len(temp)
+    for j in range(0,lenoftemp):
+        clause=temp[j]
+        clause=clause[:-1]
+        predicate=pattern1.split(clause)
+        argumentlist=predicate[1:]
+        lengthofpredicate=len(predicate)-1
+        if predicate[0] in kb:
+            if lengthofpredicate in kb[predicate[0]]:
+                kb[predicate[0]][lengthofpredicate].append([kbbefore[i],temp,j,predicate[1:]])
+            else:
+                kb[predicate[0]][lengthofpredicate]=[kbbefore[i],temp,j,predicate[1:]]
+        else:
+            kb[predicate[0]]={lengthofpredicate:[[kbbefore[i],temp,j,predicate[1:]]]}
+
+for qi in range(0,n):
+    queries[qi]=standardizationnew(queries[qi])
+
+def substituevalue(paramArray, x, y):
+    for index, eachVal in enumerate(paramArray):
+        if eachVal == x:
+            paramArray[index] = y
+    return paramArray
+
+
 
 if __name__ == '__main__': 
     finalanswer=resolution()
