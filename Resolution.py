@@ -180,6 +180,32 @@ def substituevalue(paramArray, x, y):
             paramArray[index] = y
     return paramArray
 
+def unificiation(arglist1,arglist2):
+    theta = collections.OrderedDict()
+    for i in range(len(arglist1)):
+        if arglist1[i] != arglist2[i] and (arglist1[i][0] in capitalVariables) and (arglist2[i][0] in capitalVariables):
+            return []
+        elif arglist1[i] == arglist2[i] and (arglist1[i][0] in capitalVariables) and (arglist2[i][0] in capitalVariables):
+            if arglist1[i] not in theta.keys():
+                theta[arglist1[i]] = arglist2[i]
+        elif (arglist1[i][0] in capitalVariables) and not (arglist2[i][0] in capitalVariables):
+            if arglist2[i] not in theta.keys():
+                theta[arglist2[i]] = arglist1[i]
+                arglist2 = substituevalue(arglist2, arglist2[i], arglist1[i])
+        elif not (arglist1[i][0] in capitalVariables) and (arglist2[i][0] in capitalVariables):
+            if arglist1[i] not in theta.keys():
+                theta[arglist1[i]] = arglist2[i]
+                arglist1 = substituevalue(arglist1, arglist1[i], arglist2[i])   
+        elif not (arglist1[i][0] in capitalVariables) and not (arglist2[i][0] in capitalVariables):
+            if arglist1[i] not in theta.keys():
+                theta[arglist1[i]] = arglist2[i]
+                arglist1 = substituevalue(arglist1, arglist1[i], arglist2[i])
+            else:
+                argval=theta[arglist1[i]]
+                theta[arglist2[i]]=argval
+                arglist2 = substituevalue(arglist2, arglist2[i], argval)               
+    return [arglist1,arglist2,theta]
+
 
 
 if __name__ == '__main__': 
