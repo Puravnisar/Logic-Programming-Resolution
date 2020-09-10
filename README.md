@@ -44,20 +44,21 @@ or a negated atomic sentence.
 2) **A single literal**: q or ~q
 
 ### Note:
--1. & denotes the conjunction operator.
--2. | denotes the disjunction operator. It will not appear in the queries nor in the KB given as input. But you will likely need it to create your proofs.
--3. => denotes the implication operator.
--4. ~ denotes the negation operator.
--5. No other operators besides &, =>, and ~ are used in the knowledge base.
--6. There will be no parentheses in the KB except as used to denote arguments of predicates.
--7. Variables are denoted by a single lowercase letter.
--8. All predicates (such as HighBP) and constants (such as Alice) are case sensitive alphabetical strings that begin with uppercase letters.
--9. Each predicate takes at least one argument. Predicates will take at most 25 arguments. A given predicate name will not appear with different number of arguments.
--10. There will be at most 10 queries and 100 sentences in the knowledge base.
--11. See the sample input below for spacing patterns.
--12. You can assume that the input format is exactly as it is described.
--13. There will be no syntax errors in the given input.
--14. The KB will be true (i.e., will not contain contradictions).
+
+- & denotes the conjunction operator.
+- | denotes the disjunction operator. It will not appear in the queries nor in the KB given as input. But you will likely need it to create your proofs.
+- => denotes the implication operator.
+- ~ denotes the negation operator.
+- No other operators besides &, =>, and ~ are used in the knowledge base.
+- There will be no parentheses in the KB except as used to denote arguments of predicates.
+- Variables are denoted by a single lowercase letter.
+- All predicates (such as HighBP) and constants (such as Alice) are case sensitive alphabetical strings that begin with uppercase letters.
+- Each predicate takes at least one argument. Predicates will take at most 25 arguments. A given predicate name will not appear with different number of arguments.
+- There will be at most 10 queries and 100 sentences in the knowledge base.
+- See the sample input below for spacing patterns.
+- You can assume that the input format is exactly as it is described.
+- There will be no syntax errors in the given input.
+- The KB will be true (i.e., will not contain contradictions).
 
 ### Format for output.txt
 
@@ -152,3 +153,6 @@ FALSE
 
 **Disclaimer: Examples and test cases are for the purpose of testing logic inference in this
 homework only. They do NOT represent factual information on drug interactions.**
+
+
+PS. This was homework #2 of CSCI 561 - Fall 2019 - Foundations of Artificial Intelligence - under [Professor Laurent Itti](http://ilab.usc.edu/itti/).
