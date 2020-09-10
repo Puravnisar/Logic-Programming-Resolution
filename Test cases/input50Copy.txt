@@ -1,0 +1,8 @@
+1
+C(PHD,PHD)
+5
+A(x,y) & B(z,w) => C(x,w)
+C(y,x) => A(x,y)
+C(x,y) => B(y,x)
+A(EE,CS)
+B(MS,PHD)

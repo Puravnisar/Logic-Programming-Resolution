@@ -1,0 +1,5 @@
+1
+B(John)
+2
+A(S5,y)=>B(John)
+A(x,x)

@@ -1,0 +1,7 @@
+1
+C(Alice)
+4
+~B(x,y) & ~A(x,y) => A(Bob,Tom)
+B(Alice,Bob) => C(Alice)
+A(Alice,Bob) => C(Alice)
+A(Bob,Tom) => C(Alice)

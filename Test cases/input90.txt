@@ -1,0 +1,4 @@
+1
+Takes(Bob,A)
+1
+Takes(x,x)

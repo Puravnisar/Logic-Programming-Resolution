@@ -1,0 +1,17 @@
+2
+Conservative(Clem)
+~Conservative(Stan)
+13
+~Austinite(x) | Armadillo(y)
+~Austinite(x) | Loves(x,y)
+Conservative(x) | Armadillo(y)
+Conservative(x) | Loves(x,y)
+Wears(x) => Aggie(x)
+~Aggie(x) | ~Dog(y) | Loves(x,y)
+Dog(y) 
+~Loves(x,y)
+Armadillo(z) 
+Loves(x,z)
+Austinite(Clem) & Wears(Clem)
+~Wears(Stan)
+Austinite(Stan)
