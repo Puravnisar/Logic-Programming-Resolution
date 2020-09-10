@@ -1,5 +1,5 @@
 # Logic-Programming-Resolution
-Python Program to perform Resolution for First Order Logic
+Python3 Program to perform Resolution for First Order Logic
 
 RipeApe pharmacy is developing a self-service automated system to alert customers about
 potential drug interactions for both prescription and over-the-counter drugs. Many medications
@@ -155,4 +155,4 @@ FALSE
 homework only. They do NOT represent factual information on drug interactions.**
 
 
-PS. This was homework #2 of CSCI 561 - Fall 2019 - Foundations of Artificial Intelligence - under [Professor Laurent Itti](http://ilab.usc.edu/itti/).
+PS. This was homework #3 of CSCI 561 - Fall 2019 - Foundations of Artificial Intelligence - under [Professor Laurent Itti](http://ilab.usc.edu/itti/).
