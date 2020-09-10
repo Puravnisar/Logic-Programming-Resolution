@@ -206,7 +206,107 @@ def unificiation(arglist1,arglist2):
                 arglist2 = substituevalue(arglist2, arglist2[i], argval)               
     return [arglist1,arglist2,theta]
 
-
+def resolution():
+    global repeatedsentencecheck
+    answer=list()
+    qrno=0
+    for qr in queries:
+        qrno+=1
+        repeatedsentencecheck.clear()
+        q=queue.Queue()
+        query_start=time.time()
+        kbquery=copy.deepcopy(kb)
+        ans=qr
+        if qr[0]=='~':
+            ans=qr[1:]
+        else:
+            ans='~'+qr
+        q.put(ans)
+        label:outerloop
+        currentanswer="FALSE"
+        counter=0
+        while True:
+            counter+=1
+            if q.empty():
+                break
+            ans=q.get()
+            label:outerloop1
+            ansclauses=pattern.split(ans)
+            lenansclauses=len(ansclauses)
+            flagmatchedwithkb=0
+            innermostflag=0
+            for ac in range(0,lenansclauses):
+                insidekbflag=0
+                ansclausestruncated=ansclauses[ac][:-1]
+                ansclausespredicate=pattern1.split(ansclausestruncated)
+                lenansclausespredicate=len(ansclausespredicate)-1
+                if ansclausespredicate[0][0]=='~':
+                    anspredicatenegated=ansclausespredicate[0][1:]
+                else:
+                    anspredicatenegated="~"+ansclausespredicate[0]   
+                x=kbquery.get(anspredicatenegated,{}).get(lenansclausespredicate)
+                if not x:
+                    continue      
+                else:
+                    lenofx=len(x)
+                    for numofpred in range(0,lenofx):
+                        insidekbflag=0
+                        putinsideq=0
+                        sentenceselected=x[numofpred]
+                        thetalist=unificiation(copy.deepcopy(sentenceselected[3]),copy.deepcopy(ansclausespredicate[1:]))
+                        if(len(thetalist)!=0):
+                            for key in thetalist[2]:
+                                tl=thetalist[2][key]
+                                tl2=thetalist[2].get(tl)
+                                if tl2:
+                                    thetalist[2][key]=tl2
+                            flagmatchedwithkb=1
+                            notincludedindex=sentenceselected[2]
+                            senclause=copy.deepcopy(sentenceselected[1])
+                            mergepart1=""
+                            del senclause[notincludedindex]
+                            ansclauseleft=copy.deepcopy(ansclauses)
+                            del ansclauseleft[ac]
+                            for am in range(0,len(senclause)):
+                                senclause[am]=replace(senclause[am],thetalist[2])
+                                mergepart1=mergepart1+senclause[am]+'|'      
+                            for remain in range(0,len(ansclauseleft)):
+                                listansclauseleft=ansclauseleft[remain]
+                                ansclauseleft[remain]=replace(listansclauseleft,thetalist[2])
+                                if ansclauseleft[remain] not in senclause:
+                                    mergepart1=mergepart1+ansclauseleft[remain]+'|'
+                            mergepart1=mergepart1[:-1]
+                            if mergepart1=="": 
+                               currentanswer="TRUE"
+                               break                             
+                            ckbflag=insidekbcheck(mergepart1)
+                            if not ckbflag:
+                                    mergepart1=insidestandardizationnew(mergepart1)  
+                                    ans=mergepart1
+                                    temp=pattern.split(ans)
+                                    lenoftemp=len(temp)
+                                    for j in range(0,lenoftemp):
+                                        clause=temp[j]
+                                        clause=clause[:-1]
+                                        predicate=pattern1.split(clause)
+                                        argumentlist=predicate[1:]
+                                        lengthofpredicate=len(predicate)-1
+                                        if predicate[0] in kbquery:
+                                            if lengthofpredicate in kbquery[predicate[0]]:
+                                                kbquery[predicate[0]][lengthofpredicate].append([mergepart1,temp,j,argumentlist])
+                                            else:
+                                                kbquery[predicate[0]][lengthofpredicate]=[[mergepart1,temp,j,argumentlist]]
+                                        else:
+                                            kbquery[predicate[0]]={lengthofpredicate:[[mergepart1,temp,j,argumentlist]]}
+                                    q.put(ans)                           
+                    if(currentanswer=="TRUE"):
+                        break                        
+            if(currentanswer=="TRUE"):
+               break
+            if(counter==2000 or (time.time()-query_start)>20):
+                break    
+        answer.append(currentanswer)
+    return answer  
 
 if __name__ == '__main__': 
     finalanswer=resolution()
